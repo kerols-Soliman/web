@@ -1,0 +1,152 @@
+<html>
+    <head>
+        <style>
+            body{
+                margin: 10px;
+                padding: 10px;
+            }
+            #bod{
+                padding: 0px 20px;
+            }
+            h2{
+                color: white;
+                background-color: grey;
+                padding: 5px;
+                text-align: center;
+            }
+            img{
+                border:1px solid black;
+                height: 303;
+                width: 249;
+                display:none;
+            }
+            label{
+                color:blue;
+                font-weight: bold;
+            }
+            #txt1{
+                padding: 4px;
+            }
+            #bu{
+                font-weight:bold;
+                padding: 6px;
+                margin:0 0 10px 0;
+                background-color: #3f9636;
+                color: white;
+                border: #082405;
+            }
+            #up{
+                color: blue;
+            }
+            
+            #div1 button{
+                
+               
+                padding:3px 5px;
+                margin: 2px;
+                
+
+            }
+            #div1 button:focus{
+                font-weight:bold;
+                padding: 6px;
+                background-color: #3f9636;
+                color: white;
+                border: #082405;
+
+            }
+
+        </style>
+    </head>
+    <body>
+        <h2>Learn The English Letters</h2>
+        <div id="bod">
+            <p id="up"></p>
+            <label>Number Of Letters : </label>
+            <input type="text" id="txt1">
+            <button id="bu">Generate</button>
+            <div id="div1"></div>
+            <img id="img1">
+            
+
+            
+        </div>
+        <h2>Web2 Project</h2>
+
+        <script>
+            var butto=document.getElementById("bu");
+            var array=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+            var up=document.getElementById("up");
+            var txt1=document.getElementById("txt1");
+            var div=document.getElementById("div1");
+            var img=document.getElementById("img1");
+            up.innerHTML=array+"<br>";
+
+            var locals=window.localStorage;
+            var key=locals.length;
+
+            window.addEventListener("load",function(e){
+                var n=key=key+1;
+                locals.setItem(n+"."+e.target ,e.type+" "+new Date().toLocaleTimeString());
+            });
+            window.addEventListener("unload",function(e){
+                var n=key=key+1;
+                locals.setItem(n+"."+e.target ,e.type+" "+new Date().toLocaleTimeString());
+            });
+
+            
+            butto.addEventListener("click",function(e){
+                img.style.display="none";
+                div.textContent="";
+                var n=key=key+1;
+                locals.setItem(n+"."+e.target.textContent ,e.type+" "+new Date().toLocaleTimeString());
+                rep(txt1.value);
+            });
+            function getele(){
+                return array[Math.floor(Math.random()*array.length)];
+            }
+            
+            
+            var ar_img={A:"a.jpg",B:"b.jpg",C:"c.jpg",D:"d.jpg",E:"e.jpg",F:"f.jpg",G:"g.jpg",H:"h.jpg",I:"i.jpg",J:"j.jpg",K:"k.jpg",L:"l.jpg",M:"m.jpg",N:"n.jpg",O:"o.jpg",P:"p.jpg"
+            ,Q:"q.jpg",R:"r.jpg",S:"s.jpg",T:"t.jpg",U:"u.jpg",V:"v.jpg",W:"w.jpg",X:"x.jpg",Y:"y.jpg",Z:"z.jpg"
+            };
+
+            function rep(e){
+                for(var i=0;i<e;i++){
+                    var ne=document.createElement("button");
+                    var e1=getele();
+                    ne.append(e1);
+                    div.appendChild(ne);
+                }
+                var buttoncreated=document.getElementsByTagName("button");
+                
+                for(var i=1;i<buttoncreated.length;i++){
+                    buttoncreated[i].addEventListener("click",function(e){
+                        var x=e.target.textContent;
+                        var n=key=key+1;
+                        locals.setItem(n +"."+e.target.textContent,e.type+" "+new Date().toLocaleTimeString());
+                        img.style.display="block";
+                        img.setAttribute("src",ar_img[x]);
+                        
+                    });
+                }
+            }    
+
+            //var timmmmer1=document.getElementById("timmmmer");
+            var timer=5;
+            var interval=setInterval(display,1000);
+            function display(){
+               // timmmmer1.innerHTML=timer;
+                if(timer>0){
+                    timer=timer-1;
+                }
+                else{
+                    locals.clear();
+                    timer=5;
+                    key=0;
+                }
+            }
+
+        </script>
+    </body>
+    </html>
